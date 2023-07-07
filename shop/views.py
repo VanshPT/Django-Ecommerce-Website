@@ -13,10 +13,11 @@ def index(request):
 
     allProds = []
     catprods = Product.objects.values('category', 'id')
-    print(catprods)
+    # print(catprods)
     cats = {item['category'] for item in catprods}
     for cat in cats:
         prod = Product.objects.filter(category=cat)
+        # print(prod)
         n = len(prod)
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
@@ -31,16 +32,19 @@ def about(request):
     return render(request, 'shop/about.html')
 
 def contact(request):
-    return HttpResponse("We are at contact")
+    return render(request,'shop/contact.html')
 
 def tracker(request):
-    return HttpResponse("We are at tracker")
+    return render(request,'shop/tracker.html')
 
 def search(request):
-    return HttpResponse("We are at search")
+    return render(request,'shop/search.html')
 
-def prodview(request):
-    return HttpResponse("We are at product view")
+def prodview(request, myid):
+    product = Product.objects.get(id=myid)  # Retrieve the product with the specified ID
+    context = {'p': product}  # Create a context dictionary with the product
+    return render(request, 'shop/prodview.html', context)
+
 
 def checkout(request):
-    return HttpResponse("We are at checkout")
+    return render(request,'shop/checkout.html')

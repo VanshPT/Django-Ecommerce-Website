@@ -1,0 +1,45 @@
+{% extends 'shop/basic.html' %}
+{% block title %}My Awesome Cart | Product-{{p.produt_name}}{% endblock %}
+{% block css %}
+#id1{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    margin:1rem 0;
+}
+#id2{
+    padding-top:2rem;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    margin:1rem 0;
+}
+
+.btns{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:1rem;
+}
+.btns button{
+    margin:10px;
+}
+{% endblock %}
+{% block body %}
+    <div class="container d-flex align-items-center justify-content-around">
+        <div id="id1" class="container">
+            <img src="/media/{{p.image}}" width="400px" height="400px" alt="">
+            <div class="btns">
+                <button  id="bn" class="btn btn-primary ">Buy Now</button>
+                <button  id="pr" class="btn btn-primary cart">Add to Cart</button>
+            </div>
+        </div>
+        <div id="id2" class="container">
+            <h5>{{p.produt_name}}</h5>
+            <span><strong>Rs. {{p.price}}</strong></span>
+            <p>{{p.desc}}</p>
+        </div>
+    </div>
+{% endblock %}
+<!-- description of black plastic chair in less than 300 words ecommerce website -->
