@@ -32,7 +32,9 @@
             <img src="/media/{{p.image}}" width="400px" height="400px" alt="">
             <div class="btns">
                 <button  id="bn" class="btn btn-primary ">Buy Now</button>
-                <button  id="pr" class="btn btn-primary cart">Add to Cart</button>
+                <span id="divpr{{p.id}}" class="divpr">
+                    <button  id="pr{{p.id}}" class="btn btn-primary cart">Add to Cart</button>
+                </span>
             </div>
         </div>
         <div id="id2" class="container">

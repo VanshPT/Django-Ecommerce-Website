@@ -48,6 +48,20 @@ bottom: auto;
           color:white;
           text-decoration:none;
         }
+        .poptxt{
+          color:green;
+          
+        }
+        .popitemcont{
+          border:2px solid black;
+          padding:3px;
+          margin:3px;
+          border-radius:5px;
+        }
+        .atext{
+          text-decoration:none;
+          color:black;
+        }
  {% endblock %}
 
 {% block body %}
@@ -78,10 +92,12 @@ bottom: auto;
           <div class="card" style="width: 18rem;">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">{{i.produt_name}}</h5>
+              <h5 class="card-title" id="namepr{{i.id}}">{{i.produt_name}}</h5>
               <p class="card-text">{{ i.desc|slice:":50" }}...</p>
               <button  id="qv{{i.id}}" class="btn btn-primary colorc"><a href="/shop/prodview/{{i.id}}">Quick View</a></button>
-              <button  id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+              <span id="divpr{{i.id}}" class="divpr">
+                <button  id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+              </span>
             </div>
           </div>
         </div>
@@ -110,3 +126,143 @@ bottom: auto;
     
 </div>
  {% endblock %}
+{% block js %}
+<script>
+  function updatePopover(cart){
+    var pop=document.getElementById('popcart')
+    var popstr=""
+    popstr=popstr+"<h5 class='poptxt'>Your Cart</h5>"
+    var i=1
+
+    for (var item in cart){
+      popstr=popstr+"<div class='popitemcont'>"
+      popstr=popstr+"<b>"+i+".) "+"</b>"
+      popstr=popstr+document.getElementById('name'+item).innerHTML+" - Qty: "+cart[item]
+      popstr=popstr+"</div>"
+      
+      i=i+1
+    }
+    popstr=popstr+"<button class='clrcrt btn btn-danger' onclick='clearCart()'>Clear cart</button><button class='btn btn-success'><a href='/shop/checkout' class='atext'>Checkout</a></button>"
+
+    document.getElementById('popcart').setAttribute('data-bs-content',popstr)
+  }
+
+  //function for changing add to cart button to plus and minus button
+  function updateCart(cart) {
+    for (var item in cart) {
+      document.getElementById("div" + item).innerHTML = "<button id='minus" +item + "' class='btn btn-primary minus'>-</button><span id='val" +item + "'> " +cart[item] +" </span><button id='plus" +item +"' class='btn btn-primary plus'>+</button>";
+      
+    }
+    updatePopover(cart)
+  }
+  function clearCart(){
+    cart=JSON.parse(localStorage.getItem('cart'))
+    for (item in cart){
+      document.getElementById('div'+item).innerHTML="<button  id='"+ item +"' class='btn btn-primary cart'>Add to Cart</button>"
+    }
+    localStorage.clear()
+    cart={}
+    updateCart(cart)
+
+  }
+  //actual code starts from here of making cart
+  if (localStorage.getItem("sum") == null) {
+    document.querySelector("#numItemsCart").textContent = 0;
+  } else {
+    document.querySelector("#numItemsCart").textContent =
+      localStorage.getItem("sum");
+  }
+  if (localStorage.getItem("cart") == null) {
+    var cart = {}; //when our website is opened for first time, we dont have a cart, so this condition will make an empty cart automatically if no cart exists in your local storage. we can store anything in local storage as an JSON object.
+    localStorage.setItem("cart", JSON.stringify(cart));
+  } else {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(cart);
+  }
+  var buttns = document.querySelectorAll(".cart");
+  for (buttn of buttns) {
+    buttn.addEventListener("click", function () {
+      // console.log('clicked')
+      var Idstr = this.id.toString(); //this is how you get id of a particular element selected
+      // console.log(Idstr)
+      if (cart[Idstr] != undefined) {
+        cart[Idstr] = cart[Idstr] + 1;
+      } else {
+        cart[Idstr] = 1;
+      }
+      updateCart(cart);
+      updatePopover(cart)
+      // console.log(cart)
+      var sum = 0;
+      for (var key in cart) {
+        sum = sum + cart[key];
+      }
+      // console.log(sum)
+      localStorage.setItem("sum", sum.toString());
+      document.querySelector("#numItemsCart").textContent =
+        localStorage.getItem("sum");
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updatePopover(cart)
+    });
+  }
+  var exampleEl = document.getElementById("popcart");
+  var popover = new bootstrap.Popover(exampleEl);
+  // document.getElementById("popcart").setAttribute(
+  //     "data-bs-content",
+  //     "<h5>Cart for your items in Shopping Cart</h5>"
+  //   );
+  updatePopover(cart)
+  //working of plus minus button(converted from jquery by chatgpt to vanilla js)
+  document.querySelectorAll('.divpr').forEach(function(element) {
+element.addEventListener('click', function(event) {
+updatePopover(cart)
+var target = event.target;
+if (target.classList.contains('minus')) {
+  var a = target.id.slice(7);
+  // console.log(a);
+  if(cart['pr'+a]>0){
+    cart['pr' + a] -= 1;
+    updatePopover(cart)
+  }
+  document.getElementById('valpr' + a).innerHTML = cart['pr' + a];
+  updateCart(cart);
+  updatePopover(cart)
+  localStorage.setItem('cart',JSON.stringify(cart))
+  
+  var sum = 0;
+      for (var key in cart) {
+        sum = sum + cart[key];
+      }
+      // console.log(sum)
+      localStorage.setItem("sum", sum.toString());
+      document.querySelector("#numItemsCart").textContent =
+        localStorage.getItem("sum");
+        updatePopover(cart)
+      localStorage.setItem("cart", JSON.stringify(cart));
+} 
+else if (target.classList.contains('plus')) {
+  var b = target.id.slice(6);
+  cart['pr' + b] += 1;
+  document.getElementById('valpr' + b).innerHTML = cart['pr' + b];
+  updateCart(cart);
+  updatePopover(cart)
+  localStorage.setItem('cart',JSON.stringify(cart))
+  var sum = 0;
+      for (var key in cart) {
+        sum = sum + cart[key];
+      }
+      // console.log(sum)
+      localStorage.setItem("sum", sum.toString());
+      document.querySelector("#numItemsCart").textContent =
+        localStorage.getItem("sum");
+      localStorage.setItem("cart", JSON.stringify(cart));
+}
+updatePopover(cart)
+});
+});
+var cart=JSON.parse(localStorage.getItem('cart'))
+  updatePopover(cart)
+</script>
+{% endblock %}
+<!-- <i class='fa-sharp fa-solid fa-trash'></i> -->
+<!-- <i class='fa-sharp fa-solid fa-cash-register'></i> -->

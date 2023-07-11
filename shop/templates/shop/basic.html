@@ -45,6 +45,8 @@
                     }
                     nav {
                       position: sticky;
+                      top:0;
+                      left:0;
                     }
                     .navbar-dark .navbar-nav .nav-link.active,
                     .navbar-dark .navbar-nav .show > .nav-link {
@@ -60,8 +62,10 @@
                       color:#ffc107;
                     }
                     .cartl1{
-                      color:#ffc107;
-                      margin-right:5px;
+                      color:white;
+                      background-color: #ffc107;
+                      padding:1.15rem;
+                      border-radius:5px;
                     }
                     .navbar-dark .navbar-nav .nav-link {
                       color: #ffc107;
@@ -193,52 +197,6 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
-    <script>
-      if (localStorage.getItem("sum") == null) {
-        document.querySelector("#numItemsCart").textContent = 0;
-      } else {
-        document.querySelector("#numItemsCart").textContent =
-          localStorage.getItem("sum");
-      }
-      if (localStorage.getItem("cart") == null) {
-        var cart = {}; //when our website is opened for first time, we dont have a cart, so this condition will make an empty cart automatically if no cart exists in your local storage. we can store anything in local storage as an JSON object.
-        localStorage.setItem("cart", JSON.stringify(cart));
-      } else {
-        cart = JSON.parse(localStorage.getItem("cart"));
-        console.log(cart);
-      }
-      var buttns = document.querySelectorAll(".cart");
-      for (buttn of buttns) {
-        buttn.addEventListener("click", function () {
-          // console.log('clicked')
-          var Idstr = this.id.toString(); //this is how you get id of a particular element selected
-          // console.log(Idstr)
-          if (cart[Idstr] != undefined) {
-            cart[Idstr] = cart[Idstr] + 1;
-          } else {
-            cart[Idstr] = 1;
-          }
-          // console.log(cart)
-          var sum = 0;
-          for (var key in cart) {
-            sum = sum + cart[key];
-          }
-          // console.log(sum)
-          localStorage.setItem("sum", sum.toString());
-          document.querySelector("#numItemsCart").textContent =
-            localStorage.getItem("sum");
-          localStorage.setItem("cart", JSON.stringify(cart));
-        });
-      }
-      var exampleEl = document.getElementById("popcart");
-      var popover = new bootstrap.Popover(exampleEl);
-      document
-        .getElementById("popcart")
-        .setAttribute(
-          "data-bs-content",
-          "<h5>Cart for your items in Shopping Cart</h5>"
-        );
-    </script>
     {% block js %}{% endblock %}
   </body>
 </html>

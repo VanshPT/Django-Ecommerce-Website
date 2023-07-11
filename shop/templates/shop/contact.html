@@ -1,8 +1,60 @@
 {% extends 'shop/basic.html' %}
 {% block title %}My Awesome Cart | Contact Us{% endblock %}
 {% block css %}
-
+#mainbox{
+    margin-top:2rem;
+}
+.text{
+    font-weight:bold;
+}
+.margg1{
+    margin-top:10px;
+}
 {% endblock %}
 {% block body %}
-    
+<main id="mainbox">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <h2 class="text-center mb-4 text">Contact Us</h2>
+          <p class="text-center">We'd love to hear from you! Fill out the form below to get in touch with us.</p>
+          <form action="/shop/contact/" method="post">{% csrf_token %}
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name" required name="Name">
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required name="Email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Your Phone Number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required name="Phone">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required name="Message"></textarea>
+            </div>
+            <!-- <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="subscribe">
+              <label class="form-check-label" for="subscribe" name="Subs">Subscribe to our newsletter</label>
+            </div> -->
+            <button type="submit" class="btn btn-warning margg1">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-6 offset-lg-3">
+          <h4 class="text-center">Contact Information</h4>
+          <p class="text-center">Feel free to reach out to us using the following contact information:</p>
+          <ul class="list-unstyled text-center">
+            <li><i class="fa-sharp fa-solid fa-house"></i><strong>Address:</strong> 123 Main St, City, Country</li>
+            <li><i class="fa-sharp fa-solid fa-phone"></i><strong>Phone:</strong> +1 123 456 7890</li>
+            <li><i class="fa-sharp fa-solid fa-envelope"></i><strong>Email:</strong> info@example.com</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
 {% endblock %}
