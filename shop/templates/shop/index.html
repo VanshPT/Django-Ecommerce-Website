@@ -93,6 +93,7 @@ bottom: auto;
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title" id="namepr{{i.id}}">{{i.produt_name}}</h5>
+              <span class="fw-bold" id="pricepr{{i.id}}">Rs. {{i.price}}</span>
               <p class="card-text">{{ i.desc|slice:":50" }}...</p>
               <button  id="qv{{i.id}}" class="btn btn-primary colorc"><a href="/shop/prodview/{{i.id}}">Quick View</a></button>
               <span id="divpr{{i.id}}" class="divpr">
@@ -131,7 +132,7 @@ bottom: auto;
   function sumOfCart(cart){
     var sum=0
     for(item in cart){
-      sum=sum+cart[item]
+      sum=sum+cart[item][0]
     }
     return (sum)
   }
@@ -147,21 +148,28 @@ bottom: auto;
   $('.cart').click(function(){
     var Idstr=this.id.toString()
     if(cart[Idstr]!=undefined){
-      cart[Idstr]=cart[Idstr]+1
+      qty=cart[Idstr][0]+1
+      name=$('#name'+Idstr).html()
+      price=$('#price'+Idstr).html()
+      cart[Idstr]=[qty,name,price]
       localStorage.setItem('cart',JSON.stringify(cart))
       updateCart(cart)
       updatePopover(cart)
       cart=JSON.parse(localStorage.getItem('cart'))
     }
-    else if (cart[Idstr]===0){
-      delete cart[Idstr]
-      localStorage.setItem('cart',JSON.stringify(cart))
-      updateCart(cart)
-      updatePopover(cart)
-      cart=JSON.parse(localStorage.getItem('cart'))
-    }
+    // else if (cart[Idstr][0]===0){
+    //   delete cart[Idstr]
+    //   localStorage.setItem('cart',JSON.stringify(cart))
+    //   updateCart(cart)
+    //   updatePopover(cart)
+    //   cart=JSON.parse(localStorage.getItem('cart'))
+    // }
     else{
-      cart[Idstr]=1
+      qty=1
+      name=$('#name'+Idstr).html()
+      price=$('#price'+Idstr).html().substring(4)
+      // console.log(qty,name)
+      cart[Idstr]=[qty,name,price]
     }
     console.log(cart)
     document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
@@ -183,7 +191,7 @@ updatePopover(cart)
 function updateCart(cart){
   //for any variable we want to show on front end which is changing, then use "+ ele +"
   for(item in cart){
-    $('#div'+item).html("<button id='minus"+ item +"' class='btn btn-primary minus'>-</button><span id='val"+ item +"'>"+ cart[item] +"</span><button id='plus"+ item +"' class='btn btn-primary plus'>+</button>")
+    $('#div'+item).html("<button id='minus"+ item +"' class='btn btn-primary minus'>-</button><span id='val"+ item +"'>"+ cart[item][0] +"</span><button id='plus"+ item +"' class='btn btn-primary plus'>+</button>")
   }
   updatePopover(cart)
 }
@@ -192,8 +200,8 @@ function updateCart(cart){
 //if i want that we click to an element inside a tag with class ='example'. then use this format
 $(".divpr").on('click','button.minus',function(){
   var item=this.id.toString().substring(5)
-  if(cart[item]>0){
-    cart[item]=cart[item]-1
+  if(cart[item][0]>0){
+    cart[item][0]=cart[item][0]-1
     document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
     updateCart(cart)
     updatePopover(cart)
@@ -202,7 +210,7 @@ $(".divpr").on('click','button.minus',function(){
 })
 $(".divpr").on('click','button.plus',function(){
   var item=this.id.toString().substring(4)
-  cart[item]=cart[item]+1
+  cart[item][0]=cart[item][0]+1
   document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
   updateCart(cart)
   updatePopover(cart)
@@ -227,7 +235,7 @@ function updatePopover(cart) {
   for (item in cart) {
     popstr = popstr + "<div class='popitemcont'>";
     popstr = popstr + "<b>" + i + ".) " + "</b>";
-    popstr = popstr + $('#name'+item).html()+" - Qty: " + cart[item];
+    popstr = popstr + $('#name'+item).html()+" - Qty: " + cart[item][0];
     popstr = popstr + "</div>";
     i = i + 1;
   }

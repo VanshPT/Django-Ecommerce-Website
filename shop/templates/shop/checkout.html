@@ -2,40 +2,25 @@
 
 {% block title %}My Awesome Cart | Checkout{%endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+#poptxt{
+    color:green;
+    
+  }
+.grtxt{
+    color:green;
+}
+#emptyMsg{
+    color:red;
+}  
+{% endblock %}
 {% block body %}
 <div class="container">
   <div class="col my-4">
     <h3>Step 1 - My Awesome Cart Express Checkout - Review your Cart Items</h3>
-    <div id="items">
-      <ol class="list-group list-group-numbered">
-        <li
-          class="list-group-item d-flex justify-content-between align-items-start"
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <span class="badge bg-primary rounded-pill">14</span>
-        </li>
-        <li
-          class="list-group-item d-flex justify-content-between align-items-start"
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <span class="badge bg-primary rounded-pill">14</span>
-        </li>
-        <li
-          class="list-group-item d-flex justify-content-between align-items-start"
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <span class="badge bg-primary rounded-pill">14</span>
-        </li>
+    <div >
+      <ol class="list-group list-group-numbered" id="items">
+        <!-- dynamically added elements from js below -->
       </ol>
     </div>
   </div>
@@ -94,4 +79,157 @@
       </form>
   </div>
 </div>
+{% endblock %}
+{% block js %}
+<script>
+    //copypasted index.html js code
+function sumOfCart(cart){
+    var sum=0
+    for(item in cart){
+      sum=sum+cart[item][0]
+    }
+    return (sum)
+  }
+
+
+  if(localStorage.getItem('cart')==null){
+    var cart={}
+  }
+  else{
+    cart=JSON.parse(localStorage.getItem('cart'))
+    document.getElementById('numCart').innerHTML=sumOfCart(cart)//everytime cart is loaded from localstorage when website is opened, sum will be automatically set too in cart
+  }
+//   $('.cart').click(function(){
+//     var Idstr=this.id.toString()
+//     if(cart[Idstr]!=undefined){
+//       qty=cart[Idstr][0]+1
+//       name=$('#name'+Idstr).html()
+//       cart[Idstr]=[qty,name]
+//       localStorage.setItem('cart',JSON.stringify(cart))
+//       updateCart(cart)
+//       updatePopover(cart)
+//       cart=JSON.parse(localStorage.getItem('cart'))
+//     }
+//     // else if (cart[Idstr][0]===0){
+//     //   delete cart[Idstr]
+//     //   localStorage.setItem('cart',JSON.stringify(cart))
+//     //   updateCart(cart)
+//     //   updatePopover(cart)
+//     //   cart=JSON.parse(localStorage.getItem('cart'))
+//     // }
+//     else{
+//       qty=1
+//       name=$('#name'+Idstr).html()
+//       console.log(qty,name)
+//       cart[Idstr]=[qty,name]
+//     }
+//     console.log(cart)
+//     document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
+//     updateCart(cart)
+//     localStorage.setItem('cart',JSON.stringify(cart))
+//     updatePopover(cart)
+//   })
+
+  //popover
+
+  var exampleEl = document.getElementById('popcart')
+  var popover = new bootstrap.Popover(exampleEl)
+//function that changes popover cart upon every item added or removed
+
+
+//this function changes dom of add to cart button upon clicking to +,- buttons and value of that item in cart in between.
+// function updateCart(cart){
+//   //for any variable we want to show on front end which is changing, then use "+ ele +"
+//   for(item in cart){
+//     $('#div'+item).html("<button id='minus"+ item +"' class='btn btn-primary minus'>-</button><span id='val"+ item +"'>"+ cart[item][0] +"</span><button id='plus"+ item +"' class='btn btn-primary plus'>+</button>")
+//   }
+//   updatePopover(cart)
+// }
+
+//code for working of plus,minus button
+//if i want that we click to an element inside a tag with class ='example'. then use this format
+// $(".divpr").on('click','button.minus',function(){
+//   var item=this.id.toString().substring(5)
+//   if(cart[item][0]>0){
+//     cart[item][0]=cart[item][0]-1
+//     document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
+//     updateCart(cart)
+//     updatePopover(cart)
+//     localStorage.setItem('cart',JSON.stringify(cart))
+//   }
+// })
+// $(".divpr").on('click','button.plus',function(){
+//   var item=this.id.toString().substring(4)
+//   cart[item][0]=cart[item][0]+1
+//   document.getElementById('numCart').innerHTML=sumOfCart(cart) //method to find sum of all keys(method made abve)
+//   updateCart(cart)
+//   updatePopover(cart)
+//   localStorage.setItem('cart',JSON.stringify(cart))
+// })
+function clearCart(){
+  cart=JSON.parse(localStorage.getItem('cart'))
+  for(item in cart){
+    $('div'+item).html("<button  id='"+ item +"' class='btn btn-primary cart'>Add to Cart</button>")
+  }
+  localStorage.clear()
+  cart={}
+//   updateCart(cart)
+  updatePopover(cart)
+}
+updatePopover(cart)
+function updatePopover(cart) {
+  popstr = "";
+  popstr = popstr + "<h5 id='poptxt'>Your Cart</h5>";
+  var i = 1;
+  var cart=JSON.parse(localStorage.getItem('cart'))
+  popstr=popstr+"<div>"
+  for (item in cart) {
+    popstr = popstr + "<div class='popitemcont'>";
+    popstr = popstr + "<b>" + i + ".) " + "</b>";
+    popstr = popstr + cart[item][1]+" - Qty: " + cart[item][0];
+    popstr = popstr + "</div>";
+    i = i + 1;
+  }
+  popstr=popstr+"</div>"
+  popstr=popstr+"<br><button class='btn btn-primary id='checkout'><a href='/shop/checkout/'>Checkout</a></button><button class='btn btn-primary id='clearCart' onclick='clearCart()'>Clear Cart</button>"
+  console.log(popstr)
+  document.getElementById('popcart').setAttribute('data-bs-content', popstr);
+}
+    //copypasted index.html js code end
+prodnameli=""
+if( $.isEmptyObject(cart)){
+    prodnameli= prodnameli+"<h6 id='emptyMsg'>Your Cart is Empty. Please add Items in cart to continue.</h6>"
+$('#items').html(prodnameli)
+}
+var total=0
+for(item in cart){
+    let qty=cart[item][0]
+    let name=cart[item][1]
+    let price=cart[item][2]
+    let prshown=price*qty
+    total=total+prshown
+    prodnameli= prodnameli+`<li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">${name}</div>
+          </div>
+          <div class="mx-3">
+          Rs. ${prshown}
+          </div>
+          <span class="badge bg-primary rounded-pill">${qty}</span>
+        </li>`
+}
+    prodnameli= prodnameli+`<br><span
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold grtxt">Total: </div>
+          </div>
+          <div class="mx-5">
+          Rs. ${total}
+          </div>
+        </span>`
+$('#items').html(prodnameli)
+</script>
 {% endblock %}

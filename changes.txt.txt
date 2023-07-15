@@ -1,0 +1,2 @@
+1.){After Seventh commit}
+change made while creating checkout page. the cart object now stores 'pr'+id of object as keys and arrays of [product quantity, product name] as values . In old JS script, the cart object was defined as 'pr'+id as key and product quantity as values. This change was incorporated to access name of the product in all web pages by accessing cart object from localStorage. earlier the names of products could only be accessed through HTML of index page and cannot be viewed on any other page.
