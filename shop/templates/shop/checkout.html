@@ -1,4 +1,97 @@
 {% extends 'shop/basic.html' %}
-{% block title %}{% endblock %}
+
+{% block title %}My Awesome Cart | Checkout{%endblock %}
+
 {% block css %}{% endblock %}
-{% block body %}{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="col my-4">
+    <h3>Step 1 - My Awesome Cart Express Checkout - Review your Cart Items</h3>
+    <div id="items">
+      <ol class="list-group list-group-numbered">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Subheading</div>
+            Cras justo odio
+          </div>
+          <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Subheading</div>
+            Cras justo odio
+          </div>
+          <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Subheading</div>
+            Cras justo odio
+          </div>
+          <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="col my-4">
+    <h3>Step 2 - Enter Address and Other Details:</h3>
+    <form class="row g-3">
+        <div class="col-md-6">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="name" class="form-control" id="inputName" placeholder="Name">
+          </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Address</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">Address Line 2</label>
+          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">City</label>
+          <input type="text" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">State</label>
+          <select id="inputState" class="form-select">
+            <option selected>Choose...</option>
+            <option>Gujarat</option>
+            <option>Karnataka</option>
+            <option>Maharashtra</option>
+            <option>New Delhi</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="inputZip" class="form-label">Zip</label>
+          <input type="text" class="form-control" id="inputZip">
+        </div>
+          <div class="col-md-6">
+            <label for="inputPhone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="inputPhone" placeholder="Enter Phone Number">
+          </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              I am not a Robot
+            </label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-warning">Place Order</button>
+        </div>
+      </form>
+  </div>
+</div>
+{% endblock %}
