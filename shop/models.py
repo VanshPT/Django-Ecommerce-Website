@@ -22,6 +22,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+class Orders(models.Model):
+    order_id=models.AutoField(primary_key=True)
+    items_json=models.CharField(max_length=100000)
+    name=models.CharField(max_length=100)
+    email=models.EmailField(max_length=50,default="")
+    address=models.CharField(max_length=100,default="")
+    address_line_2=models.CharField(max_length=500,default="")
+    city=models.CharField(max_length=50,default="")
+    state=models.CharField(max_length=50,default="")
+    zip_code=models.CharField(max_length=30,default="")
+    phone=models.CharField(max_length=40,default="")
+
+    def __str__(self):
+        return self.name
 #first we run migrate command, then add table to our models.py file. as soon as we add tables in our models.py, we have to change from appname in installed apps to appname.apps.AppnameConfig(shop.apps.ShopConfig) ,then we have to run python manage.py makemigrations. after that we finally do the migrations by python manage.py migrate. We can see our database made here in models.py by django admin. for acccessing django admin page, we need to create a superuser which could only access django/admin page. for that write pytohn manage.py createsuperuser
 #we have to register now our model on admin.py
 
