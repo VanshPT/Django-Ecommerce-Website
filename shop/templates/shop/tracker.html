@@ -1,4 +1,118 @@
 {% extends 'shop/basic.html' %}
-{% block title %}{% endblock %}
-{% block css %}{% endblock %}
-{% block body %}{% endblock %}
+
+{% block title %}My Awesome Cart | Order Tracker{%endblock %}
+
+{% block css %}
+#poptxt{
+    color:green;
+    
+  }
+.grtxt{
+    color:green;
+}
+#emptyMsg{
+    color:red;
+}
+.popitemcont{
+  border:2px solid black;
+  padding:3px;
+  margin:3px;
+  border-radius:5px;
+}  
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="col my-4">
+    <h3>My Awesome Cart Order Tracker - Enter your order ID and Email Address</h3>
+    <form class="row g-3" method="post" action="#" id="trackerForm">{% csrf_token %}
+        <input type="hidden" name="itemsJson" id="itemsJson">
+          <div class="col-md-6">
+              <label for="orderid" class="form-label">Order ID</label>
+              <input type="number" class="form-control" id="orderid" placeholder="Your Order ID" name="orderid">
+            </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+          </div>
+          
+          <div class="col-12">
+            <button type="submit" class="btn btn-warning">Track Order</button>
+          </div>
+        </form>
+  </div>
+  <div class="col my-4">
+    <h4>Your Order Status:</h4>
+    <!-- cross site request forgery -->
+    <div >
+        <ul class="list-group" id="items">
+          <!-- dynamically added elements from js below -->
+        </ul>
+      </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    //copypasted index.html js code
+function sumOfCart(cart){
+    var sum=0
+    for(item in cart){
+      sum=sum+cart[item][0]
+    }
+    return (sum)
+  }
+
+
+  if(localStorage.getItem('cart')==null){
+    var cart={}
+  }
+  else{
+    cart=JSON.parse(localStorage.getItem('cart'))
+    document.getElementById('numCart').innerHTML=sumOfCart(cart)//everytime cart is loaded from localstorage when website is opened, sum will be automatically set too in cart
+  }
+
+
+  //popover
+
+  var exampleEl = document.getElementById('popcart')
+  var popover = new bootstrap.Popover(exampleEl)
+//function that changes popover cart upon every item added or removed
+
+function clearCart(){
+  cart=JSON.parse(localStorage.getItem('cart'))
+  for(item in cart){
+    $('div'+item).html("<button  id='"+ item +"' class='btn btn-primary cart'>Add to Cart</button>")
+  }
+  localStorage.clear()
+  cart={}
+//   updateCart(cart)
+  updatePopover(cart)
+}
+updatePopover(cart)
+function updatePopover(cart) {
+  popstr = "";
+  popstr = popstr + "<h5 id='poptxt'>Your Cart</h5>";
+  var i = 1;
+  var cart=JSON.parse(localStorage.getItem('cart'))
+  popstr=popstr+"<div>"
+  for (item in cart) {
+    popstr = popstr + "<div class='popitemcont'>";
+    popstr = popstr + "<b>" + i + ".) " + "</b>";
+    popstr = popstr + cart[item][1]+" - Qty: " + cart[item][0];
+    popstr = popstr + "</div>";
+    i = i + 1;
+  }
+  popstr=popstr+"</div>"
+  popstr=popstr+"<br><button class='btn btn-primary id='checkout'><a href='/shop/checkout/'>Checkout</a></button><button class='btn btn-primary id='clearCart' onclick='clearCart()'>Clear Cart</button>"
+  console.log(popstr)
+  document.getElementById('popcart').setAttribute('data-bs-content', popstr);
+}
+    //copypasted index.html js code end
+$('#trackerForm').submit(function(event){
+    $('#items').empty()
+    var formdata={
+        
+    }
+})
+</script>
+{% endblock %}

@@ -239,8 +239,8 @@ function updatePopover(cart) {
     popstr = popstr + "</div>";
     i = i + 1;
   }
-  popstr=popstr+"</div>"
-  popstr=popstr+"<br><button class='btn btn-primary id='checkout'><a href='/shop/checkout/'>Checkout</a></button><button class='btn btn-primary id='clearCart' onclick='clearCart()'>Clear Cart</button>"
+  popstr=popstr+"</div>";
+  popstr=popstr+"<br><button class='btn btn-primary id='checkout'><a href='/shop/checkout/'>Checkout</a></button><button class='btn btn-primary id='clearCart' onclick='clearCart()'>Clear Cart</button>";
   console.log(popstr)
   document.getElementById('popcart').setAttribute('data-bs-content', popstr);
 }

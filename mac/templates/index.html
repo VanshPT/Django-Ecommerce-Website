@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fasthand&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Hello, world!</title>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+      .brand {
+        color: #1a075e;
+        font-family: "Fasthand", cursive;
+        font-weight: bold;
+        font-size: 2rem;
+      }
+      .fs-4 {
+    font-size: 2rem!important;
+}
+.gtxt{
+  color:black;
+  text-decoration: none;
+}
+.btn-outline-warning:hover {
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.gtxt1{
+  color:#ffc107;
+  text-decoration: none;
+}
+.fw-bold {
+    font-weight: 700!important;
+    color: #1a075e;
+}
+.bg-dark {
+    background-color: #1a075e!important;
+}
+#bloghead{
+  color:#1a075e;
+  font-size: 2rem;
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-image: url('\media\background.jpg');
+      background-size: cover;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <header class="pb-3 mb-4 border-bottom">
+        <a
+          href="/"
+          class="d-flex align-items-center text-dark text-decoration-none"
+        >
+          <span class="fs-4 brand"></span>
+        </a>
+      </header>
+
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Welcome to My Awesome Cart</h1>
+          <p class="col-md-8 fs-4">
+            Get one of the most fulfilling Shopping and Blogging experience all at one place! Visit our shop or Blog by clicking on buttons below.
+          </p>
+          <!-- <button class="btn btn-primary btn-lg" type="button">
+            Login/Signup
+          </button> -->
+        </div>
+      </div>
+
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Shop Now with Us.</h2>
+            <p>
+              Now Launched with Amazing User Interface for users to enjoy their shopping experience and a feature to track your product delivery status.
+            </p>
+            <button class="btn btn-outline-warning" type="button" onclick="fshop()">
+              Shop
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2 id="bloghead">Access our Blog App</h2>
+            <p>
+              Or, keep it light and add a border for some added definition to
+              the boundaries of your content. Be sure to look under the hood at
+              the source
+            </p>
+            <button class="btn btn-warning" type="button" onclick="fblog()">
+              Blog
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="pt-3 mt-4 text-muted border-top">&copyright;My Awesome Cart 2023</footer>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function fshop(){
+        window.location.href = '/shop';
+      }
+      function fblog(){
+        window.location.href = '/blog';
+      }
+        var txth = document.querySelector(".brand");
+        
+        var txt1 = "My Awesome Cart";
+        var i = 0;
+        var str = "";
+
+        function typer1() {
+        if (i < txt1.length) {
+            txth.textContent = txth.textContent + txt1[i];
+            i++;
+            setTimeout(typer1, 100);
+        } 
+        }
+        typer1()
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
