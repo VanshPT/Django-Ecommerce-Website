@@ -65,67 +65,59 @@ bottom: auto;
           text-decoration:none;
           color:black;
         }
-        img{
-          max-width: 350px;
-          height: 400px;
-        }
-        .ht{
-          height: 400px;
-        }
  {% endblock %}
-{% block body %}
-<div class="container mt-3">
-<div class="row mb-2">
+ {% block body %}
+ <div class="container mt-3">
+ <div class="row g-5">
+    <div class="col-md-8">
+      <h1 class="pb-4 mb-4 fst-italic border-bottom">
+       {{blog.title}}
+      </h1>
+      <p class="blog-post-meta">{{blog.pub_date}}  <a href="#">Mark</a></p>
+      <article class="blog-post">
+        <h4 class="blog-post-title">{{blog.head0}}</h4>
 
+        <p>{{blog.chead01}}</p>
+        <br>
+        <p>{{blog.chead02}}</p>
+      </article>
+      <article class="blog-post">
+        <h4 class="blog-post-title">{{blog.head1}}</h4>
 
+        <p>{{blog.chead11}}</p>
+        <br>
+        <p>{{blog.chead12}}</p>
+      </article>
+      <article class="blog-post">
+        <h4 class="blog-post-title">{{blog.head2}}</h4>
 
-  {% for i in blog %}
-  <div class="col-md-6">
-
-
-    <div class="ht row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      <div class="col p-4 d-flex flex-column position-static">
-        <!-- <strong class="d-inline-block mb-2 text-primary">World</strong> -->
-        <h3 class="mb-0">{{i.title}}</h3>
-        <!-- this is how you access values of key in a dictionary in django template -->
-        <div class="mb-1 text-muted">{{i.pub_date}}</div>
-        <p class="card-text mb-auto"><em><strong>{{i.head0}}</strong></em></p>
-        <p class="card-text mb-auto">{{i.chead01|slice:":100"}}...</p>
-        <a href="/blog/blogPost/{{i.post_id}}" class="stretched-link">Continue reading</a>
-      </div>
-      <div class="col-auto d-none d-lg-block">
-        <img src="/media/{{i.thumbnail}}" alt="">
-
-      </div>
+        <p>{{blog.chead21}}</p>
+        <br>
+        <p>{{blog.chead22}}</p>
+      </article>
     </div>
 
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="fst-italic">About</h4>
+          <p class="mb-0">My Awesome Cart is an <em>Ecommerce website</em> .Buy best and quality products from my awesome cart today</p>
+        </div>
 
+        <div class="p-4">
+          <h4 class="fst-italic">Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
   </div>
-  {% endfor %}
-  <!-- <div class="col-md-6">
-
-
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      <div class="col p-4 d-flex flex-column position-static">
-        <strong class="d-inline-block mb-2 text-success">Design</strong>
-        <h3 class="mb-0">Post title</h3>
-        <div class="mb-1 text-muted">Nov 11</div>
-        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="stretched-link">Continue reading</a>
-      </div>
-      <div class="col-auto d-none d-lg-block">
-        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-      </div>
-    </div>
-
-
-  </div> -->
-</div>
-</div>
-{% endblock %}
-
-{% block js %}
+  </div>
+ {% endblock %}
+ {% block js %}
 <script>
   function sumOfCart(cart){
   var sum=0
