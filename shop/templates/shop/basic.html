@@ -28,89 +28,106 @@
       href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
-                      {% block css %}
-                      {% endblock %}
-                      .bg-dark {
-                        background-color: #1a075e !important;
-                      }
-                      .navbar-dark .navbar-brand {
-                        color: #ffc107;
-                        font-family: "Fasthand", cursive;
-                        font-weight: bold;
-                        font-size: 2rem;
-                      }
-                      .navbar-dark .navbar-brand:hover {
-                        color: rgb(255, 255, 255);
-                      }
-                      nav {
-                        position: sticky;
-                        top:0;
-                        left:0;
-                      }
-                      .navbar-dark .navbar-nav .nav-link.active,
-                      .navbar-dark .navbar-nav .show > .nav-link {
-                        color: #ffc107;
-                      }
+                            {% block css %}
+                            {% endblock %}
+                            .bg-dark {
+                              background-color: #1a075e !important;
+                            }
+                            .navbar-dark .navbar-brand {
+                              color: #ffc107;
+                              font-family: "Fasthand", cursive;
+                              font-weight: bold;
+                              font-size: 2rem;
+                            }
+                            .navbar-dark .navbar-brand:hover {
+                              color: rgb(255, 255, 255);
+                            }
+                            nav {
+                              position: sticky;
+                              top:0;
+                              left:0;
+                            }
+                            .navbar-dark .navbar-nav .nav-link.active,
+                            .navbar-dark .navbar-nav .show > .nav-link {
+                              color: #ffc107;
+                            }
 
-                      .custom-carousel-btn {
-                        color: black;
-                        background-color: transparent;
-                        border: none;
-                      }
-                      .cartl{
-                        color:#ffc107;
-                      }
-                      .cartl1{
-                        color:white;
-                        background-color: #ffc107;
-                        padding:1.15rem;
-                        border-radius:5px;
-                      }
-                      .navbar-dark .navbar-nav .nav-link {
-                        color: #ffc107;
-                      }
-                      .fa-lg {
-                        font-size: 1.5rem;
-                        line-height: .05em;
-                        vertical-align: -0.075em;
-                      }
-                      .textmod{
-                        margin-left:1rem;
-                        color:#ffc107;
-                        text-decoration: none;
-                        font-weight: bold;
-                      }
-                      .textmod1{
-                        color: #f9fafb;
-                        text-decoration: none;
-                      }
-                      .textmod1:hover{
-                        color:white;
-                      }
-                      .btn-check:focus+.btn-light, .btn-light:focus {
-            color: #ffc107;
-            background-color: #f9fafb;
-            border-color: #f9fafb;
-            box-shadow: 0 0 0 0.25rem rgba(211,212,213,.5);
-        }
-        .btn-light:hover {
-            color: #ffc107;
-            background-color: grey;
-            border-color: #ffc107;
-        }
-        .admin{
-          display: block;
-          padding: 0.5rem 1rem;
-          text-decoration: none;
-          transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-          color:rgb(214, 144, 144);
-        }
-        a:hover {
-    color:red;
-}
+                            .custom-carousel-btn {
+                              color: black;
+                              background-color: transparent;
+                              border: none;
+                            }
+                            .cartl{
+                              color:#ffc107;
+                            }
+                            .cartl1{
+                              color:white;
+                              background-color: #ffc107;
+                              padding:1.15rem;
+                              border-radius:5px;
+                            }
+                            .navbar-dark .navbar-nav .nav-link {
+                              color: #ffc107;
+                            }
+                            .fa-lg {
+                              font-size: 1.5rem;
+                              line-height: .05em;
+                              vertical-align: -0.075em;
+                            }
+                            .textmod{
+                              margin-left:1rem;
+                              color:#ffc107;
+                              text-decoration: none;
+                              font-weight: bold;
+                            }
+                            .textmod1{
+                              color: #f9fafb;
+                              text-decoration: none;
+                            }
+                            .textmod1:hover{
+                              color:white;
+                            }
+                            .btn-check:focus+.btn-light, .btn-light:focus {
+                  color: #ffc107;
+                  background-color: #f9fafb;
+                  border-color: #f9fafb;
+                  box-shadow: 0 0 0 0.25rem rgba(211,212,213,.5);
+              }
+              .btn-light:hover {
+                  color: #ffc107;
+                  background-color: grey;
+                  border-color: #ffc107;
+              }
+              .admin{
+                display: block;
+                padding: 0.5rem 1rem;
+                text-decoration: none;
+                transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+                color:rgb(214, 144, 144);
+              }
+              a:hover {
+          color:red;
+      }
+      #clearCart{
+        margin-right:1rem;
+        font-size: 0.8rem;
+      }
+      .coloricon{
+        color:white;
+        margin-right:2px;
+      }
     </style>
 
     <title>{% block title %}{% endblock %}</title>
@@ -160,9 +177,12 @@
               >
             </li>
             <li class="nav-item">
-              <a class="admin" aria-current="page" href="/admin" target="_blank">Admin</a>
+              <a class="admin" aria-current="page" href="/admin" target="_blank"
+                >Admin</a
+              >
             </li>
           </ul>
+          <button class='btn btn-danger' id='clearCart' onclick='clearCart()'><i class="fa-solid fa-xmark coloricon"></i>Clear Cart</button>
           <form class="d-flex align-items-center">
             <i class="fa-solid fa-magnifying-glass fa-lg cartl1"></i>
             <input

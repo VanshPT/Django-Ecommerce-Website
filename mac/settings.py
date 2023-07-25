@@ -126,3 +126,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #managing media
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+
+razor_pay_key_id='rzp_test_esdA78rxfTZHjI'
+key_secret='5cP6r0OXiy5j1ijUT6o3HGJN'

@@ -3,6 +3,8 @@ from .models import Product,Contact,Orders,OrderUpdate
 from math import ceil
 import json
 from django.views.decorators.csrf import csrf_exempt
+import razorpay
+from django.conf import settings
 # from checksumdir import Checksum
 
 
@@ -76,6 +78,8 @@ def prodview(request, myid):
 
 
 def checkout(request):
+    allorders = None
+    payment = None
     if request.method=="POST":
         print(request)
         itemsjson=request.POST.get('itemsJson','')
@@ -89,12 +93,20 @@ def checkout(request):
         zip_code=request.POST.get('zip_code','')
         phone=request.POST.get('phone','')
         print(amount)
+        
+        
         orders=Orders(items_json=itemsjson,amount=amount,name=name,email=email,address=address,address_line_2=address_line_2,city=city,state=state,zip_code=zip_code,phone=phone)
         #vvvvvvvvvvvvvviiiiiiiiimmmpp  these arguments in Orders class should be in order only otherwise wont be accepted
         orders.save()
+        allorders=Orders.objects.filter(order_id=orders.order_id)
+        amount = int(float(orders.amount) * 100)
+        client=razorpay.Client(auth=('rzp_test_esdA78rxfTZHjI','5cP6r0OXiy5j1ijUT6o3HGJN'))
+        data={'amount':amount,'currency':'INR','payment_capture':1}
+        payment=client.order.create(data=data)
         update=OrderUpdate(order_id=orders.order_id,update_desc="The Order has been placed")
         update.save()
-
-
-    return render(request, 'shop/checkout.html')
+        
+    
+    context={'orders':allorders,'payment':payment}
+    return render(request, 'shop/checkout.html',context)
 

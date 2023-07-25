@@ -240,7 +240,7 @@ function updatePopover(cart) {
     i = i + 1;
   }
   popstr=popstr+"</div>";
-  popstr=popstr+"<br><button>clear cart</button>";
+  popstr=popstr+"<br><a href='/shop/checkout/' id='checkout'>Checkout</a>";
   console.log(popstr)
   document.getElementById('popcart').setAttribute('data-bs-content', popstr);
 }
