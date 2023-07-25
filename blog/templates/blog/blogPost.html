@@ -74,6 +74,15 @@ bottom: auto;
        {{blog.title}}
       </h1>
       <p class="blog-post-meta">{{blog.pub_date}}  <a href="#">Mark</a></p>
+      <div class="fb-like" 
+       data-href="http://127.0.0.1:8000/blog/blogPost/{{blog.post_id}}/" 
+       data-width=""
+       data-layout="standard" 
+       data-action="like" 
+       data-size="small"  
+       data-share="true">
+  </div>
+      
       <article class="blog-post">
         <h4 class="blog-post-title">{{blog.head0}}</h4>
 
@@ -95,6 +104,8 @@ bottom: auto;
         <br>
         <p>{{blog.chead22}}</p>
       </article>
+      <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/{{blog.post_id}}" data-width="" data-numposts="5"></div>
+
     </div>
 
     <div class="col-md-4">

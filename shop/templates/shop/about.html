@@ -29,3 +29,66 @@
     </p>
 </div>
 {% endblock %}
+{% block js %}
+<script>
+    function sumOfCart(cart){
+      var sum=0
+      for(item in cart){
+        sum=sum+cart[item][0]
+      }
+      return (sum)
+    }
+  
+  
+    if(localStorage.getItem('cart')==null){
+      var cart={}
+    }
+    else{
+      cart=JSON.parse(localStorage.getItem('cart'))
+      document.getElementById('numCart').innerHTML=sumOfCart(cart)//everytime cart is loaded from localstorage when website is opened, sum will be automatically set too in cart
+    }
+  
+    //popover
+  
+    var exampleEl = document.getElementById('popcart')
+    var popover = new bootstrap.Popover(exampleEl)
+  //function that changes popover cart upon every item added or removed
+  
+  
+  updatePopover(cart)
+  
+
+  
+
+  function clearCart(){
+    cart=JSON.parse(localStorage.getItem('cart'))
+    for(item in cart){
+      $('div'+item).html("<button  id='"+ item +"' class='btn btn-primary cart'>Add to Cart</button>")
+    }
+    localStorage.clear()
+    cart={}
+    updateCart(cart)
+    updatePopover(cart)
+  }
+  function updatePopover(cart) {
+    popstr = "";
+    popstr = popstr + "<h5 id='poptxt'>Your Cart</h5>";
+    var i = 1;
+    var cart=JSON.parse(localStorage.getItem('cart'))
+    popstr=popstr+"<div>"
+    for (item in cart) {
+      popstr = popstr + "<div class='popitemcont'>";
+      popstr = popstr + "<b>" + i + ".) " + "</b>";
+      popstr = popstr + $('#name'+item).html()+" - Qty: " + cart[item][0];
+      popstr = popstr + "</div>";
+      i = i + 1;
+    }
+    popstr=popstr+"</div>";
+    popstr=popstr+"<br><a id='checkout'><a href='/shop/checkout/'>Checkout</a></a><span id='clearCart'>Clear Cart</span>";
+   
+    console.log(popstr)
+    document.getElementById('popcart').setAttribute('data-bs-content', popstr);
+    document.querySelector('#clearCart').addEventListener('click',clearCart())
+  }
+  </script>
+{% endblock %}

@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import Product,Contact,Orders,OrderUpdate
 from math import ceil
 import json
+from django.views.decorators.csrf import csrf_exempt
+# from checksumdir import Checksum
+
 
 # Create your views here.
 from django.http import HttpResponse
@@ -76,6 +79,7 @@ def checkout(request):
     if request.method=="POST":
         print(request)
         itemsjson=request.POST.get('itemsJson','')
+        amount=request.POST.get('amount','')
         name=request.POST.get('name','')
         email=request.POST.get('email','')
         address=request.POST.get('address','')
@@ -84,9 +88,13 @@ def checkout(request):
         state=request.POST.get('state','')
         zip_code=request.POST.get('zip_code','')
         phone=request.POST.get('phone','')
-        print(name)
-        orders=Orders(items_json=itemsjson,name=name,email=email,address=address,address_line_2=address_line_2,city=city,state=state,zip_code=zip_code,phone=phone)
+        print(amount)
+        orders=Orders(items_json=itemsjson,amount=amount,name=name,email=email,address=address,address_line_2=address_line_2,city=city,state=state,zip_code=zip_code,phone=phone)
+        #vvvvvvvvvvvvvviiiiiiiiimmmpp  these arguments in Orders class should be in order only otherwise wont be accepted
         orders.save()
         update=OrderUpdate(order_id=orders.order_id,update_desc="The Order has been placed")
         update.save()
-    return render(request,'shop/checkout.html')
+
+
+    return render(request, 'shop/checkout.html')
+
