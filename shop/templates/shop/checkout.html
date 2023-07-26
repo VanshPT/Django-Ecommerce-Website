@@ -18,9 +18,6 @@ padding:3px; margin:3px; border-radius:5px; } {% endblock %} {% block body %}
       {% csrf_token %}
       <input type="hidden" name="itemsJson" id="itemsJson" />
       <input type="hidden" name="amount" id="amount" />
-      <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
-      <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
-      <input type="hidden" name="razorpay_signature" id="razorpay_signature">
       <div class="col-md-6">
         <label for="name" class="form-label">Name</label>
         <input
@@ -210,7 +207,6 @@ padding:3px; margin:3px; border-radius:5px; } {% endblock %} {% block body %}
 
     "handler": function (response){
       window.location.href='http://127.0.0.1:8000/shop/thankyou/?razorpay_payment_id=$(response.razorpay_payment_id)&razorpay_order_id=$(response.razorpay_order_id)&razorpay_signature=$(response.razorpay_signature)'
-      
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature)

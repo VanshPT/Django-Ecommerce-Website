@@ -107,6 +107,7 @@ def checkout(request):
     context={'orders':allorders,'payment':payment}
     return render(request, 'shop/checkout.html',context)
 
+
 def thankyou(request):
     razorpay_payment_id = request.GET.get('razorpay_payment_id')
     razorpay_order_id = request.GET.get('razorpay_order_id')
