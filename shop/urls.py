@@ -9,6 +9,6 @@ urlpatterns = [
     path("search/", views.search,name="Search"),
     path("prodview/<int:myid>", views.prodview,name="Prodview"),
     path("checkout/", views.checkout,name="Checkout"),
-    # path("handleRequest/", views.handleRequest,name="handleRequest")
+    path("thankyou/", views.thankyou,name="thankyou")
     
 ]

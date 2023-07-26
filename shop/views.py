@@ -92,21 +92,36 @@ def checkout(request):
         state=request.POST.get('state','')
         zip_code=request.POST.get('zip_code','')
         phone=request.POST.get('phone','')
-        print(amount)
-        
-        
         orders=Orders(items_json=itemsjson,amount=amount,name=name,email=email,address=address,address_line_2=address_line_2,city=city,state=state,zip_code=zip_code,phone=phone)
         #vvvvvvvvvvvvvviiiiiiiiimmmpp  these arguments in Orders class should be in order only otherwise wont be accepted
         orders.save()
-        allorders=Orders.objects.filter(order_id=orders.order_id)
+        allorders=Orders.objects.filter(razor_pay_order_id=orders.razor_pay_order_id)
         amount = int(float(orders.amount) * 100)
         client=razorpay.Client(auth=('rzp_test_esdA78rxfTZHjI','5cP6r0OXiy5j1ijUT6o3HGJN'))
         data={'amount':amount,'currency':'INR','payment_capture':1}
         payment=client.order.create(data=data)
-        update=OrderUpdate(order_id=orders.order_id,update_desc="The Order has been placed")
+        update=OrderUpdate(razor_pay_order_id=orders.razor_pay_order_id,update_desc="The Order has been placed")
         update.save()
         
     
     context={'orders':allorders,'payment':payment}
     return render(request, 'shop/checkout.html',context)
 
+def thankyou(request):
+    razorpay_payment_id = request.GET.get('razorpay_payment_id')
+    razorpay_order_id = request.GET.get('razorpay_order_id')
+    razorpay_signature = request.GET.get('razorpay_signature')
+    try:
+        orders = Orders.objects.get(razor_pay_order_id=razorpay_order_id)
+        order = orders.first()
+        order.is_paid = True
+        order.save()
+        context = {
+            'razorpay_payment_id': razorpay_payment_id,
+            'razorpay_order_id': razorpay_order_id,
+            'razorpay_signature': razorpay_signature,
+        }
+        return render(request, 'shop/thankyou.html', context)
+        
+    except Orders.DoesNotExist:
+        return HttpResponse("Invalid Order ID")
